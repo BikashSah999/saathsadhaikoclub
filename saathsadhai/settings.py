@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ce*iv*=(++6w%tm9$^i_@llz9pd%3dq%(@yeut^m9dk(ao$ykj'
+SECRET_KEY = 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -140,8 +140,8 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '339696590476989'
-SOCIAL_AUTH_FACEBOOK_SECRET = '567a96f61f8aaf3641a9dfb2822112dd'
+SOCIAL_AUTH_FACEBOOK_KEY = 
+SOCIAL_AUTH_FACEBOOK_SECRET = 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       
   'fields': 'id, name, email, picture.type(large), link, gender'
