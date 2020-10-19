@@ -11,6 +11,7 @@ class Luckydraw(models.Model):
         return(self.name)
 
 class Participants(models.Model):
+    facebook_id = models.CharField(max_length=1000)
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)

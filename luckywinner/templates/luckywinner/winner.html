@@ -3,34 +3,27 @@
 {% extends 'luckywinner/base.html' %}
 {% block title %} Saath Sadhaiko Club {% endblock %}
 {% block content %}
-  <div class="row">
-    {% if user.is_superuser %}
-    {% if messages %}
-    <div class="col-sm-12 mt-2 text-center">
-      {% for message in messages %}
-      <h6 class="success">
-        {{message}}
-      </h6>
-      {% endfor %}
-    </div>
-    {% endif %}
+{% load static %}
+<img class="bg-main" src="{% static 'img/bgmain.png' %}" alt="">
+<div class="container">
+	<div class="container-div">
+		<div class="centered-div absolute-section">
+			<h2 class="header-text cstm-main-head mg-bt-20 mb-head-text">Saathsadhaikoclub</h2>
+			<h2 class="header-text cstm-main-head mg-bt-15">Welcome {{user.username}}</h2>
+			<div class="content-container">
+        <div class="row">
 
-    <div class="col-sm-12 mb-3">
-      <h6 class="text-center">Welcome {{ user.username }}</h6>
-    </div>
-        <!-- Add from here -->
-    
-      {% if luckydraw != None %}
-      <img src='/media/{{luckydraw.image}}/' alt="Luckydarw Image" class="rounded mx-auto d-block img-fluid" width="300" height="400">
-      {% endif %}
 
-    <div class="col-sm-12 mt-2 text-center">
-      <button class="btn btn-success">
-        <a href="{{winner.link}}">Congratulation Winner is {{winner.name}}</a>
-      </button>
-    </div> 
-        <!-- End here -->
-        {% endif %}
+          <div class="col-sm-12 mt-2 text-center">
+            <button class="btn btn-success">
+              <a href="{{winner.link}}">Congratulation Winner is {{winner.name}}</a>
+            </button>
+          </div> 
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
   
 {% endblock %}

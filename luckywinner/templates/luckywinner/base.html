@@ -1,25 +1,17 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    <title>Home</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div>
-            
-            <h4 class="text-white text-center">{% block title %}{% endblock %}</h4>
-            
-            <div class="card p-5">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
+    {% block content %}
+    {% endblock %}
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

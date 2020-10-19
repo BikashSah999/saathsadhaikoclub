@@ -1,46 +1,52 @@
-<!-- home.html -->
-
 {% extends 'luckywinner/base.html' %}
-{% block title %} Saath Sadhaiko Club {% endblock %}
+{% block title %} Home {% endblock %}
 {% block content %}
-  <div class="row">
+{% load static %}
+<img class="bg-main" src="{% static 'img/bgmain.png' %}" alt="">
+<div class="container">
+	<div class="container-div">
+		<div class="centered-div absolute-section">
+			<h2 class="header-text cstm-main-head mg-bt-20 mb-head-text">Saathsadhaikoclub</h2>
+			<h2 class="header-text cstm-main-head mg-bt-15">Welcome {{user.username}}</h2>
+			<div class="content-container">
+                <!--
+				<h2 class="body-text cstm-text-body mg-bt-25 mb-body-text" style="display: none;">Please like our page to participate.</h1>
+                <h2 class="body-text cstm-text-body mg-bt-25 mb-body-text">You have already liked our page. Please press the button to continue.</h1> -->
+                    {% if messages %}
+                    {% for message in messages %}
+                    <h2 class="body-text cstm-text-body mg-bt-25 mb-body-text">{{message}}</h2>
+                    {% endfor %}
+                    {% endif %}
+					<h2 class="body-text cstm-text-body mg-bt-25 mb-body-text" style="display: none;">Thank you for participating. Please visit our facebook page to stay updated.</h1>
+                    
+                    {% if luckydraw != None %}
+                    <img class="banner-main d-block mg-bt-25" src="/media/{{luckydraw.image}}" alt="">
+                    {% endif %}
 
-    {% if messages %}
-    <div class="col-sm-12 mt-2 text-center">
-      {% for message in messages %}
-      <h6 class="success">
-        {{message}}
-      </h6>
-      {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="col-sm-12 mb-3">
-      <h6 class="text-center">Welcome {{ user.username }}</h6>
-    </div>
-        <!-- Add from here -->
-    
-      {% if luckydraw != None %}
-      <img src='/media/{{luckydraw.image}}/' alt="Luckydarw Image" class="rounded mx-auto d-block img-fluid" width="300" height="400">
-      {% endif %}
-
-    {% if user.is_superuser %}
-    <div class="col-sm-12 mt-2 text-center">
-      {% if luckydraw != None %}
-      <button class="btn btn-success">
-        <a href="{% url 'winner_select' %}">Select Lucky Draw Winner</a>
-      </button>
-      {% endif %}
-    </div> 
-    {% else%}
-    <div class="col-sm-12 mt-2 text-center">
-      {% if luckydraw != None %}
-      <button class="btn btn-success">
-        <a href="/participate/{{luckydraw.name}}">Click Here to Participate</a>
-      </button>
-      {% endif %}
-    </div> 
-    {% endif %}
-        <!-- End here -->
-  </div>
+                    {% if user.is_superuser %}
+                        {% if luckydraw != None %}
+                            <button class="btn cstm-btn dark-green-theme button-text"> <a href="{% url 'winner_select' %}"> Select Winner </a></button>
+                        {% endif %}
+                    {% else %}
+                        {% if luckydraw != None %}
+                        {% if participant.status != True %}
+                            <div class="row">
+                                <div class="col-sm-12 mt-2 text-center">
+                                  <button class="btn btn-success">
+                                    <a href="/participate/{{luckydraw.name}}"> Click Here to Participate </a>
+                                  </button>
+                                </div> 
+                                <div class="col-sm-12 mt-2 text-center">
+                                  <button class="btn btn-success">
+                                    <a href="https://www.facebook.com/saathsadhaikoclub" add target="_blank"> Click Here to go to Page </a>
+                                  </button>
+                                </div> 
+                              </div>
+                        {% endif %}
+                        {% endif %}
+                    {% endif %}
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

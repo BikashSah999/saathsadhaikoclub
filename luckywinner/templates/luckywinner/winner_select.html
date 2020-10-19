@@ -3,21 +3,24 @@
 {% extends 'luckywinner/base.html' %}
 {% block title %} Saath Sadhaiko Club {% endblock %}
 {% block content %}
+{% load static %}
+<img class="bg-main" src="{% static 'img/bgmain.png' %}" alt="">
+<div class="container">
+	<div class="container-div">
+		<div class="centered-div absolute-section">
+			<h2 class="header-text cstm-main-head mg-bt-20 mb-head-text">Saathsadhaikoclub</h2>
+			<h2 class="header-text cstm-main-head mg-bt-15">Welcome {{user.username}}</h2>
+			<div class="content-container">
   {% if user.is_superuser %}
   <div class="row">
-
-    <div class="col-sm-12 mb-3">
-      <h6 class="text-center">Welcome {{ user.username }}</h6>
-    </div>
-        <!-- Add from here -->
     <div class="col-sm-12 mt-2 text-center">
       <button class="btn btn-success">
-        <a href="{% url 'overallwinner' %}">Select Winner From all Luckdraw</a>
+        <a href="{% url 'overallwinner' %}">Select Winner From overall Luckydraw</a>
       </button>
     </div> 
     <div class="col-sm-12 mt-2 text-center">
       <button class="btn btn-success">
-        <a href="{% url 'currentwinner' %}">Select Winner from Present Luckdraw Only</a>
+        <a href="{% url 'currentwinner' %}">Select Winner from Present Luckydraw Only</a>
       </button>
     </div> 
         <!-- End here -->

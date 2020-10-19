@@ -12,6 +12,9 @@ import random
 def login(request):
   return render(request, 'luckywinner/login.html')
 
+def index(request):
+  return render(request, 'luckywinner/index.html')
+
 @login_required
 def home(request):
   user = User.objects.get(username=request.user.username)
@@ -31,28 +34,54 @@ def home(request):
     auth = user.social_auth.first()
     token = auth.extra_data['access_token']
     graph = facebook.GraphAPI(token)
-    fields = ['name,email,gender,birthday,link,likes.limit(500){page_token}']
+    fields = ['id,name,email,gender,birthday,link']
     profile = graph.get_object('me', fields=fields)
     # print(profile)
-    email = profile["email"]
+    facebook_id = profile["id"]
     # Checking if participants already existed
-    if Participants.objects.filter(email=email).exists():
-      participant = Participants.objects.get(email=email)
-      if participant.status:
-        messages.info(request,'You have already Participated')
+    if Participants.objects.filter(facebook_id=facebook_id).exists():
+      participant = Participants.objects.get(facebook_id=facebook_id)
+      profile = graph.get_object('me/likes/748066388700226/')
+      likes = profile["data"]
+      if len(likes)>0:
+        messages.info(request, "You have already Participated. Please visit our facebook page to stay updated ")
+      else:
+        participant.status = False
+        messages.info(request, "Please like our facebook page to participate")
 
     # If participant doesn't existed
     else:
-      name = profile["name"]
-      gender = profile["gender"]
-      birthday = profile["birthday"]
-      link = profile["link"]
-      participant = Participants(name=name, email=email, gender=gender, birthday=birthday, link=link)
+      try:
+        name = profile["name"]
+      except:
+        name = ''
+      try:
+        gender = profile["gender"]
+      except:
+        gender = ''
+      try:
+        birthday = profile["birthday"]
+      except:
+        birthday = ''
+      try:
+        link = profile["link"]
+      except:
+        link = ''
+      try:
+        facebook_id = profile['id']
+      except:
+        facebook_id = ''
+      try:
+        email = profile['email']
+      except:
+        email = ''
+      participant = Participants(facebook_id=facebook_id, name=name, email=email, gender=gender, birthday=birthday, link=link)
       participant.save()
+      messages.info(request, "Note: You have to like our facebook page to participate")
 
     #print(json.dumps(profile, indent=4))
 
-    params = {'luckydraw':luckydraw}
+    params = {'luckydraw':luckydraw, 'participant':participant}
     return render(request, 'luckywinner/home.html', params)
 
 # @login_required
@@ -84,29 +113,29 @@ def participate(request, name):
     auth = user.social_auth.first()
     token = auth.extra_data['access_token']
     graph = facebook.GraphAPI(token)
-    fields = ['email']
+    fields = ['id']
     profile = graph.get_object('me/likes/748066388700226/')
-    emails = graph.get_object('me', fields=fields)
+    fb_id = graph.get_object('me', fields=fields)
     likes = profile["data"]
-    email = emails["email"]
+    facebook_id = fb_id["id"]
 
     if len(likes)>0:
-      participant = Participants.objects.get(email=email)
+      participant = Participants.objects.get(facebook_id=facebook_id)
       lucky = Luckydraw.objects.get(name=name)
       if participant.status==False:
         participant.status = True
         participant.luckydraw = lucky
         participant.save()
-        messages.info(request,"You have Participated")
+        messages.info(request,"Thank you for participating. Please visit our facebook page to stay updated.")
       else:
-        messages.info(request,"You have already Participated")
+        messages.info(request,"You have already Participated. Please visit our facebook page to stay updated. ")
 
     else:
-      participant = Participants.objects.get(email=email)
+      participant = Participants.objects.get(facebook_id=facebook_id)
       participant.status = False
       participant.save()
       messages.info(request,"Please Like our facebook page to participate")
-    params = {'luckydraw':luckydraw}
+    params = {'luckydraw':luckydraw, 'participant':participant}
     return render(request, 'luckywinner/home.html', params)
 
 @login_required
@@ -145,3 +174,6 @@ def overallwinner(request):
   new_winner.save()
   params = {'winner':winner}
   return render(request, 'luckywinner/winner.html', params)
+
+def privacy(request):
+  return render(request, 'luckywinner/privacy.html')

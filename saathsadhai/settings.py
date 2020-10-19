@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'ce*iv*=(++6w%tm9$^i_@llz9pd%3dq%(@yeut^m9dk(ao$ykj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['saathsadhaiko.vimvoxlab.com.np']
+ALLOWED_HOSTS = ['localhost', 'http://127.0.0.1:8000/']
 
 
 # Application definition
@@ -84,8 +84,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'saathsadhaiko',
-        'HOST': '',
-        'USER': '',
+        'HOST': 'localhost',
+        'USER': 'root',
         'PASSWORD': '',
         'PORT' : '3306'
     }
@@ -140,17 +140,18 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
-SOCIAL_AUTH_FACEBOOK_KEY = '326634035268407'
-SOCIAL_AUTH_FACEBOOK_SECRET = ''
+SOCIAL_AUTH_FACEBOOK_KEY = '339696590476989'
+SOCIAL_AUTH_FACEBOOK_SECRET = '567a96f61f8aaf3641a9dfb2822112dd'
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] 
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       
-  'fields': 'id, name, email, picture.type(large), link'
+  'fields': 'id, name, email, picture.type(large), link, gender'
 }
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 
     ('name', 'name'),
     ('email', 'email'),
     ('picture', 'picture'),
     ('link', 'profile_url'),
+    ('gender', 'gender'),
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

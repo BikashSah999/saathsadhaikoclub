@@ -1,12 +1,27 @@
 {% extends 'luckywinner/base.html' %}
 {% block title %} Sign in {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
-        <button class="btn btn-primary mb-2">
-            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
-        </button>
-    </div>
-</div>
+{% load static %}
+<div class="container">
+	<div class="container-div">
+		<div class="centered-div mb-center-div">
+            <img class="logo-main" src="{% static 'img/logo.jpg' %}" alt="" style="width:200px;height:200px;">
+            <div>
+            <video id="vid"controls loop muted style="width:500px;height:300px;">
+                <source src="{% static 'video/campaign.mp4' %}" type="video/mp4">
+                <source src="{% static 'video/campaign.ogg' %}" type="video/ogg">
+                Your browser does not support the video tag.
+            </video>
+            <script>
+                document.getElementById('vid').play();
+            </script>
+            </div>
+			<h2 class="header-text absolute-head mb-header-text">Welcome to Saathsadhaikoclub</h2>
+			<div class="content-container">
+				<h2 class="body-text mg-bt-25 mb-text-body">Please login to participate.</h1>
+				<button class="btn cstm-btn dark-green-theme"><a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a></button>
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
